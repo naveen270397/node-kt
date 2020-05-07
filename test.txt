@@ -1,3 +1,0 @@
-this is new string plus plus
-,and this string is inerted
-,this is last line 

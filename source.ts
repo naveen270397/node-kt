@@ -1,37 +1,55 @@
 class filehandle
 {
-    fs:any
-   constructor(obj:any){ this.fs=obj}
-    showfile()
-    {
-        try{
-        this.fs.readFile("test.txt","utf8",(err:any,data:any)=>{
-            if (err) throw err;
-            console.log("insde readfile \n "+data);
-        });
-    }
-    catch(msg)
-    {
-    console.log(msg);       
-    }
-    }
-    writeinfile(line:string[])
+    fs:any;
+    constructor(val:any){this.fs=val}
+    makedir(path:string)
     {
         try
         {
-            this.fs.writeFile("test.txt",line,(err:any)=>{
-                if (err)
-                throw err;
-                console.log("written into file");
+        this.fs.mkdir(process.cwd()+path,(err:any)=>{
+            if (err)
+            throw err;
+            else console.log("directory created\n");
+        });
+        }   
+        catch(err)
+        {
+            console.log(err);
+        }
+    }
+        readfromfile(path:string)
+    {
+        try
+        {
+            this.fs.readFile(process.cwd()+path,"utf8",(err:any,data:any)=>{
+                if (err) throw err;
+                else console.log(data);
             });
         }
-        catch(msg) 
+        catch(err){
+        console.log(err);
+        }
+    }
+
+    writeintofile(path:string,data:any)
+    {
+        try{
+            this.fs.appendFile(process.cwd()+path,data+"\n",(err:any)=>{
+                if (err)
+                throw err;
+                else console.log("successfully written into file \n");
+            })
+        }
+        catch(err)
         {
-            console.log(msg);
+            console.log(err);
         }
     }
 }
 let obj=new filehandle(require("fs"));
-let arr:string[]=["this is new string plus plus\n" ,"and this string is inerted\n","this is last line \n"]
-obj.writeinfile(arr);
-obj.showfile();
+let path="/newdir/";
+obj.makedir(path);
+let data="this is inserted string";
+obj.writeintofile(path+"newfile.txt",data);
+obj.readfromfile(path+"newfile.txt");
+

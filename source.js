@@ -1,35 +1,52 @@
 "use strict";
 var filehandle = /** @class */ (function () {
-    function filehandle(obj) {
-        this.fs = obj;
+    function filehandle(val) {
+        this.fs = val;
     }
-    filehandle.prototype.showfile = function () {
+    filehandle.prototype.makedir = function (path) {
         try {
-            this.fs.readFile("test.txt", "utf8", function (err, data) {
+            this.fs.mkdir(process.cwd() + path, function (err) {
                 if (err)
                     throw err;
-                console.log("insde readfile \n " + data);
+                else
+                    console.log("directory created\n");
             });
         }
-        catch (msg) {
-            console.log(msg);
+        catch (err) {
+            console.log(err);
         }
     };
-    filehandle.prototype.writeinfile = function (line) {
+    filehandle.prototype.readfromfile = function (path) {
         try {
-            this.fs.writeFile("test.txt", line, function (err) {
+            this.fs.readFile(process.cwd() + path, "utf8", function (err, data) {
                 if (err)
                     throw err;
-                console.log("written into file");
+                else
+                    console.log(data);
             });
         }
-        catch (msg) {
-            console.log(msg);
+        catch (err) {
+            console.log(err);
+        }
+    };
+    filehandle.prototype.writeintofile = function (path, data) {
+        try {
+            this.fs.appendFile(process.cwd() + path, data + "\n", function (err) {
+                if (err)
+                    throw err;
+                else
+                    console.log("successfully written into file \n");
+            });
+        }
+        catch (err) {
+            console.log(err);
         }
     };
     return filehandle;
 }());
 var obj = new filehandle(require("fs"));
-var arr = ["this is new string plus plus\n", "and this string is inerted\n", "this is last line \n"];
-obj.writeinfile(arr);
-obj.showfile();
+var path = "/newdir/";
+obj.makedir(path);
+var data = "this is inserted string";
+obj.writeintofile(path + "newfile.txt", data);
+obj.readfromfile(path + "newfile.txt");
