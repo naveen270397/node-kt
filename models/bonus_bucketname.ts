@@ -1,5 +1,9 @@
 import mongoose, { Schema } from "mongoose"
 const bucketSchema= new mongoose.Schema({
+    bucketId:{
+        type:Number,
+        required:true
+    },
 bucketName:
 {
     type:String,
