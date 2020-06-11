@@ -50,9 +50,7 @@ class BucketNameBonusService {
     static getByBonusCodeName(requestObject) {
         return __awaiter(this, void 0, void 0, function* () {
             const query = {
-                bonusCode: {
-                    bonusCodeName: requestObject.query.bonusCodeName
-                }
+                "bonusCode.bonusCodeName": requestObject.query.bonusCodeName
             };
             try {
                 return yield bonus_bucketname_dao_1.default.getByBonusCodeName(query);

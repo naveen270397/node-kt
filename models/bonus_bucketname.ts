@@ -9,17 +9,19 @@ bucketName:
     type:String,
     required:true
 },
-bonusCode:{
-        
-            bonusCodeId:Schema.Types.ObjectId,
+bonusCode:[{
+            bonusCodeId:
+            {
+                type:String,
+                required:true
+            },
             
             bonusCodeName:
             {
                 type:String,
                 requred:true,
-            },
-            
-},
+            }          
+}],
 status:{
     type:String,
     enum:["ACTIVE","INACTIVE"]

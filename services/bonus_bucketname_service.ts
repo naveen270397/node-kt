@@ -40,11 +40,9 @@ export default class BucketNameBonusService
         }
     }
     static async getByBonusCodeName(requestObject:any)
-    {
+    {  
         const query={
-            bonusCode:{
-                    bonusCodeName:requestObject.query.bonusCodeName
-            }
+           "bonusCode.bonusCodeName":requestObject.query.bonusCodeName
         }
         try
         {

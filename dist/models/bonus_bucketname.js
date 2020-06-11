@@ -1,13 +1,9 @@
 "use strict";
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importStar(require("mongoose"));
+const mongoose_1 = __importDefault(require("mongoose"));
 const bucketSchema = new mongoose_1.default.Schema({
     bucketId: {
         type: Number,
@@ -17,13 +13,16 @@ const bucketSchema = new mongoose_1.default.Schema({
         type: String,
         required: true
     },
-    bonusCode: {
-        bonusCodeId: mongoose_1.Schema.Types.ObjectId,
-        bonusCodeName: {
-            type: String,
-            requred: true,
-        },
-    },
+    bonusCode: [{
+            bonusCodeId: {
+                type: String,
+                required: true
+            },
+            bonusCodeName: {
+                type: String,
+                requred: true,
+            }
+        }],
     status: {
         type: String,
         enum: ["ACTIVE", "INACTIVE"]

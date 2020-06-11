@@ -4,15 +4,20 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "@types/hapi__joi": "^17.1.2",
     "express": "^4.17.1",
     "mongoose": "^5.9.18",
     "nodemon": "^2.0.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/express": "^4.17.6",
+    "@types/mongoose": "^5.7.23"
+  },
   "scripts": {
     "start": "node ./dist/www",
     "debug": "nodemon --inspect ./dist/www"
-},
+  },
   "author": "",
   "license": "ISC"
 }
