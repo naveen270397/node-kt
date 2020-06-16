@@ -1,0 +1,186 @@
+const Joi = require("@hapi/joi")
+const Util=require("../utils/utils");
+const Schema=Joi.object().keys({
+    name:Joi.string(),
+    site:Joi.string(),
+    bonusType:Joi.string().valid("REGISTRATION","DEPOSIT","JOURNEY"),
+    bonusCode:Joi.string(),
+    ibAmount:Joi.number(),
+    bbAmount:Joi.number(),
+    ticketData:Joi.array(),
+
+    bonusBenifit:Joi.object({
+        ibBenifit:Joi.object({
+            offerType:Joi.string().valid("PERCENTAGE","FORALL","FORSLOT"),
+            offerAmount:Joi.object({
+                cc_offer:Joi.number(),
+                dc_offer:Joi.number(),
+                net_Offer:Joi.number(),
+                cod_offer:Joi.number(),
+                upi_offer:Joi.number(),
+                wallet_offer:Joi.number(),
+                wallet_id:Joi.number(),
+                maxChips:Joi.number(),
+                chips:Joi.number(),
+                slots:Joi.array().items(Joi.object({
+                    depositStart:Joi.number(),
+                    depositEnd:Joi.number(),
+                    chips:Joi.number()
+                }))
+            })
+        }),
+
+        bbBenifit:Joi.object({
+            offerType:Joi.string().valid("PERCENTAGE","FORALL","FORSLOT"),
+            offerAmount:Joi.object({
+                cc_offer:Joi.number(),
+                dc_offer:Joi.number(),
+                net_Offer:Joi.number(),
+                cod_offer:Joi.number(),
+                upi_offer:Joi.number(),
+                wallet_offer:Joi.number(),
+                wallet_id:Joi.number(),
+                maxChips:Joi.number(),
+                chips:Joi.number(),
+                slots:Joi.array().items(Joi.object({
+                    depositStart:Joi.number(),
+                    depositEnd:Joi.number(),
+                    chips:Joi.number()
+                }))
+            })
+        }),
+        ticketBenifit:Joi.object({
+            offerType:Joi.string().valid("PERCENTAGE","FORALL","FORSLOT"),
+            offerAmount:Joi.object({
+                cc_offer:Joi.number(),
+                dc_offer:Joi.number(),
+                net_Offer:Joi.number(),
+                cod_offer:Joi.number(),
+                upi_offer:Joi.number(),
+                wallet_offer:Joi.number(),
+                wallet_id:Joi.number(),
+                maxChips:Joi.number(),
+                chips:Joi.number(),
+                autoRegister:Joi.boolean(),
+                slots:Joi.array().items(Joi.object({
+                    depositStart:Joi.number(),
+                    depositEnd:Joi.number(),
+                    ticketData:Joi.array().items(Joi.object({
+                        ticketName:Joi.string(),
+                        noOfTicket:Joi.number(),
+                    }))
+                }))
+            })
+        }),
+        optcBenifit:Joi.number(),
+        freerollBenifit:Joi.object({
+            offerType:Joi.string().valid("PERCENTAGE","FORALL","FORSLOT"),
+            offerAmount:Joi.object({
+                cc_offer:Joi.number(),
+                dc_offer:Joi.number(),
+                net_Offer:Joi.number(),
+                cod_offer:Joi.number(),
+                upi_offer:Joi.number(),
+                wallet_offer:Joi.number(),
+                wallet_id:Joi.number(),
+                maxChips:Joi.number(),
+                chips:Joi.number(),
+                slots:Joi.array().items(Joi.object({
+                    depositStart:Joi.number(),
+                    depositEnd:Joi.number(),
+                    chips:Joi.number()
+                }))
+            })
+        }),
+        tourneyBonus:Joi.object({
+            offerType:Joi.string().valid("PERCENTAGE","FORALL","FORSLOT"),
+            offerAmount:Joi.object({
+                cc_offer:Joi.number(),
+                dc_offer:Joi.number(),
+                net_Offer:Joi.number(),
+                cod_offer:Joi.number(),
+                upi_offer:Joi.number(),
+                wallet_offer:Joi.number(),
+                wallet_id:Joi.number(),
+                maxChips:Joi.number(),
+                chips:Joi.number(),
+                slots:Joi.array().items(Joi.object({
+                    depositStart:Joi.number(),
+                    depositEnd:Joi.number(),
+                    chips:Joi.number()
+                }))
+            })
+        })
+    }),
+    journeyBenifit:Joi.array().items(Joi.object({
+        day:Joi.number(),
+        benifits:Joi.object({}),
+        emailTemplateId:Joi.string(),
+        smsTemplateID:Joi.string()
+    })),
+    bonusTemplateId:Joi.number(),
+    codeType:Joi.string().valid("Regular","FlashCSV","UserSpecificExpiry","Segments"),
+    segmentIds:Joi.array().items(Joi.object({})),
+    noOfUsage:Joi.string().valid("SingleLifeTime","Multiple","Daily","Weekly","Monthly"),
+    noOfUsageDays:Joi.number(),
+    depositorType:Joi.string().valid("nthTimeOnwards","AnyDeposit"),
+    nthDeposit:Joi.number(),
+    maxUsageCount:Joi.number(),
+    overallUsageLimit:Joi.number(),
+    message:Joi.string(),
+    minDepositAmount:Joi.number(),
+    affiliateTagging:Joi.string(),
+    visibleOnBuyChips:Joi.boolean(),
+    owner:Joi.string().valid("OTHER","CRM-REACTIVATION","CRM-SUPPORT","TOURNEY","CASH","ACQUISITION"),
+    releaseUnit:Joi.number(),
+    releaseUnitType:Joi.string().valid("fixed","multiplier"),
+    timeBoundRedemption:Joi.boolean(),
+    redemptionExpiryTime:Joi.date(),
+    archived:Joi.boolean(),
+    expiredAfter:Joi.number(),
+    status:Joi.string().valid("ACTIVE","INACTIVE","PENDING"),
+    validity:Joi.array().items(Joi.object({startDate:Joi.date(),endDate:Joi.date()})),
+    createdBy:Joi.string(),
+    approvedBy:Joi.string(),
+    startDate:Joi.date(),
+    endDate:Joi.date(),
+    devices:Joi.array(),
+    channel:Joi.array(),
+    campaign:Joi.string()
+})
+
+let addValidation=async function(req,res,next)
+{
+    
+    
+        try
+        {
+           req.body=await Schema.validateAsync(req.body);
+            next();
+        }
+        catch(err)
+        {
+           res.json(Util.errorMessage(err.details[0]));
+        }
+        
+}   
+let editValidation=async function(req,res,next)
+{   
+    const editSchema=Schema.keys({
+        _id:Joi.string().required()
+    })
+    try
+    {
+        req.body=await editSchema.validateAsync(req.body);
+        next();
+    }
+    catch(err)
+    {
+        res.json(Util.errorMessage(error.detail[0]));
+    }
+}
+
+module.exports={
+    editValidation,
+    addValidation,
+}
