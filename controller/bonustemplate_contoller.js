@@ -6,7 +6,7 @@ class BonusTemplateController
 {
     async addBonusTemplate(req,res)
     {
-        let responseObject=null;
+        let responseObject={};
         try
         {
             let response=await Services.addBonusTemplate(req.body);
@@ -20,7 +20,7 @@ class BonusTemplateController
     }
     async findBonusTemplate(req,res)
     {
-        let responseObject=null;
+        let responseObject={};
         try{
            let response=await Services.findAllBonusTemplate();
             responseObject=Util.response(response.code,response.data);
@@ -34,7 +34,7 @@ class BonusTemplateController
     async findOneBonusTemplate(req,res)
     {   
 
-        let responseObject=null;
+        let responseObject={};
         try
         {
            let response=await Services.findOneBonusTemplate(req.params);
@@ -49,7 +49,7 @@ class BonusTemplateController
     }
     async updateBonusTemplate(req,res)
     {
-        let responseObject=null;
+        let responseObject={};
         try
         {
             let response=await Services.updateBonusTemplate(req.body);

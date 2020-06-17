@@ -6,7 +6,7 @@ module.exports=class BonusTemplateServices
 {
     static addBonusTemplate=async (requestObject)=>
 {
-    let responseObject=null;
+    let responseObject={};
     
     let dataToAdd = {
         name: requestObject.name,
@@ -24,9 +24,9 @@ module.exports=class BonusTemplateServices
     };
     try
     {
-        responseObject=await bonusTemplateDao.insert(dataToAdd);
+        let querydata=await bonusTemplateDao.insert(dataToAdd);
         responseObject.code=responseCode.SUCCESS;
-        responseObject.data={};
+        responseObject.data=querydata;
     }
     catch(error)
     {
@@ -43,12 +43,12 @@ module.exports=class BonusTemplateServices
     return responseObject;
 }
 static findAllBonusTemplate=async (requestObject={})=>{
-    let responseObject=null;
+    let responseObject={};
     try{
         let query={};
-        responseObject=await bonusTemplateDao.find(query);
+        let querydata=await bonusTemplateDao.find(query);
         responseObject.code=responseCode.SUCCESS;
-        responseObject.data={};
+        responseObject.data=querydata;
     }
     catch(error)
     {
@@ -65,16 +65,16 @@ static findAllBonusTemplate=async (requestObject={})=>{
     return responseObject;
 }
 static findOneBonusTemplate=async (requestObject)=>{
-    let responseObject=null;
+    let responseObject={};
     try
     {
         let query={_id:null};
         if (requestObject && requestObject.id){
             query._id= requestObject.id
         }
-        responseObject=await bonusTemplateDao.findOne(query);
+        let querydata=await bonusTemplateDao.findOne(query);
         responseObject.code=responseCode.SUCCESS;
-        responseObject.data={};
+        responseObject.data=querydata;
     }
     catch(error)
     {
@@ -91,7 +91,7 @@ static findOneBonusTemplate=async (requestObject)=>{
     return responseObject;
 }
 static updateBonusTemplate=async (requestObject)=>{
-    let responseObject=null;
+    let responseObject={};
     try
     {
         let query={
@@ -155,9 +155,9 @@ static updateBonusTemplate=async (requestObject)=>{
         if (requestObject && requestObject.campaign){
             dataToUpdate.campaign= requestObject.campaign
         }
-        responseObject=await bonusTemplateDao.update(query,dataToUpdate)
+        let querydata=await bonusTemplateDao.update(query,dataToUpdate)
         responseObject.code=responseCode.SUCCESS;
-        responseObject.data={};
+        responseObject.data=querydata;
     }
     catch(error)
     {

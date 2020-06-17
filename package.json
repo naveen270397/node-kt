@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": " && node www.js",
+    "start": "node www.js",
     "debug": "nodemon --inspect www.js"
   },
   "author": "",
