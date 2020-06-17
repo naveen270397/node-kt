@@ -28,7 +28,7 @@ module.exports=class BonusTemplateServices
         responseObject.code=responseCode.SUCCESS;
         responseObject.data={};
     }
-    catch(err)
+    catch(error)
     {
        responseObject.code=responseCode.SOME_INTERNAL_ERROR;
        responseObject.data={};
@@ -50,7 +50,7 @@ static findAllBonusTemplate=async (requestObject={})=>{
         responseObject.code=responseCode.SUCCESS;
         responseObject.data={};
     }
-    catch(err)
+    catch(error)
     {
         responseObject.code=responseCode.SOME_INTERNAL_ERROR;
         responseObject.data={};
@@ -76,7 +76,7 @@ static findOneBonusTemplate=async (requestObject)=>{
         responseObject.code=responseCode.SUCCESS;
         responseObject.data={};
     }
-    catch(err)
+    catch(error)
     {
         responseObject.code=responseCode.SOME_INTERNAL_ERROR;
         responseObject.data={};
@@ -159,7 +159,7 @@ static updateBonusTemplate=async (requestObject)=>{
         responseObject.code=responseCode.SUCCESS;
         responseObject.data={};
     }
-    catch(err)
+    catch(error)
     {
         responseObject.code=responseCode.SOME_INTERNAL_ERROR;
         responseObject.data={};
