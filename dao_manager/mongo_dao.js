@@ -18,7 +18,7 @@ module.exports= class MongoDao
                     fileName:path.basename(__filename),
                 }
             )
-            throw err;
+            throw error;
         }
     }
 
