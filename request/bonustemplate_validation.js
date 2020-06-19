@@ -176,7 +176,7 @@ let editValidation=async function(req,res,next)
     }
     catch(err)
     {
-        res.json(Util.errorMessage(error.detail[0]));
+        res.json(Util.errorMessage(err.detail[0]));
     }
 }
 
